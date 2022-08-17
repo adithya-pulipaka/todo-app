@@ -1,0 +1,18 @@
+.taskList {
+  display: flex;
+  flex-direction: column;
+}
+.taskItem {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(128, 122, 122);
+  gap: 1rem;
+  margin: 1rem;
+}
+.heading {
+  max-width: 60%;
+}
+.completed {
+  text-decoration: line-through;
+}
