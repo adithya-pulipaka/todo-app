@@ -9,7 +9,8 @@
   --clr-secondary: #ffffff;
   --clr-accent: #ff9400;
   --clr-gray: #d5d5d5;
-  --clr-text-black: #000;
+  --clr-black: #000000;
+  --clr-blue: #0000ff;
 
   --fs-h1: 2.75rem;
   --fs-h2: 2.25rem;
@@ -53,3 +54,6 @@ a {
     background: black;
   }
 } */
+html {
+  scroll-behavior: smooth;
+}

@@ -17,6 +17,7 @@ const TaskInput = ({ onTodoAdd }) => {
         value={input}
         placeholder="Add a new Task"
         onChange={(e) => setInput(e.target.value)}
+        minWidth="22rem"
       ></Input>
       <Button onClick={addTodo}>Add Todo</Button>
     </div>

@@ -8,6 +8,7 @@ import Input from "../components/core/Input";
 import Container from "../components/core/Container";
 import TaskInput from "../components/task/TaskInput";
 import TaskList from "../components/task/TaskList";
+import EditTask from "../components/task/EditTask";
 
 const list = [
   {
@@ -24,6 +25,8 @@ const list = [
 
 export default function Home() {
   const [todos, setTodos] = useState(list);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState(null);
 
   const addTodo = (value) => {
     const todo = {
@@ -54,6 +57,25 @@ export default function Home() {
       })
     );
   };
+
+  const editTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    setSelectedTodo(todo);
+    setIsEditMode(true);
+  };
+
+  const saveTodo = (item) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === item.id) {
+          return item;
+        }
+        return todo;
+      })
+    );
+    setIsEditMode(false);
+  };
+
   return (
     <div>
       <Head>
@@ -65,15 +87,26 @@ export default function Home() {
       <main>
         <div className="App">
           <Container className={styles.addTask}>
+            <h2>A simple Todo App</h2>
             <TaskInput onTodoAdd={addTodo}></TaskInput>
           </Container>
-          <div className={styles.taskList}>
+          <div>
             <TaskList
               items={todos}
               onComplete={markAsCompleted}
               onDelete={deleteTodo}
-            ></TaskList>
+              onEdit={editTodo}
+            />
           </div>
+          {isEditMode && (
+            <>
+              <EditTask
+                item={selectedTodo}
+                onSave={saveTodo}
+                onCancel={() => setIsEditMode(false)}
+              ></EditTask>
+            </>
+          )}
         </div>
       </main>
     </div>

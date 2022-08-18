@@ -1,10 +1,8 @@
 .addTask {
   background-color: var(--clr-accent);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.taskList {
-  /* background: #000; */
-  margin-top: 0;
+  color: var(--clr-black);
 }

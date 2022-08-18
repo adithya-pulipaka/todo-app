@@ -1,0 +1,17 @@
+.editTask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+.taskHeaders {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+.checkbox {
+  margin-right: auto !important;
+  margin-bottom: 0.25rem !important;
+}
