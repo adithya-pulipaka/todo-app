@@ -1,10 +1,70 @@
-*,
+:root {
+  --clr-primary: #706a6a;
+  --clr-secondary: #ffffff;
+  --clr-accent: #ff9400;
+  --clr-gray: #d5d5d5;
+  --clr-black: #000000;
+  --clr-blue: #0000ff;
+
+  --fs-h1: 2.75rem;
+  --fs-h2: 2.25rem;
+  --fs-h3: 1.75rem;
+  --fs-h4: 1.25rem;
+  --fs-body: 1rem;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-base leading-relaxed scroll-smooth;
+    font-family: "Source Sans Pro", sans-serif;
+  }
+  h1 {
+    @apply text-[2.75rem] leading-relaxed font-bold my-7;
+  }
+  h2 {
+    @apply text-3xl leading-relaxed font-bold my-5;
+  }
+  h3 {
+    @apply text-2xl leading-relaxed font-bold my-3;
+  }
+  h4 {
+    @apply text-xl leading-relaxed font-bold my-1;
+  }
+  a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@layer utilities {
+  .text-primary {
+    @apply text-white;
+  }
+  .bg-primary {
+    background: var(--clr-primary);
+  }
+  .text-secondary {
+    color: var(--clr-primary);
+  }
+  .bg-secondary {
+    @apply bg-white;
+  }
+  .text-accent {
+    color: var(--clr-accent);
+  }
+  .bg-accent {
+    background: var(--clr-accent);
+  }
+}
+
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 :root {
-  /* --clr-primary: #303030; */
   --clr-primary: #706a6a;
   --clr-secondary: #ffffff;
   --clr-accent: #ff9400;
@@ -45,15 +105,7 @@ a {
   text-decoration: none;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
+
 html {
   scroll-behavior: smooth;
-}
+} */
