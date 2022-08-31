@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { v4 as uuid } from "uuid";
-import TaskInput from "../components/task/TaskInput";
-import TaskList from "../components/task/TaskList";
-import EditTask from "../components/task/EditTask";
+import TaskInput from "../components/TaskInput";
+import TaskList from "../components/TaskList";
+import EditTask from "../components/EditTask";
 
 const list = [
   {
