@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { v4 as uuid } from "uuid";
-import Button from "../components/core/Button";
-import Input from "../components/core/Input";
-import Container from "../components/core/Container";
-import TaskInput from "../components/task/TaskInput";
-import TaskList from "../components/task/TaskList";
-import EditTask from "../components/task/EditTask";
+import TaskInput from "../components/TaskInput";
+import TaskList from "../components/TaskList";
+import EditTask from "../components/EditTask";
 
 const list = [
   {
@@ -85,29 +80,27 @@ export default function Home() {
       </Head>
 
       <main>
-        <div className="App">
-          <Container className={styles.addTask}>
-            <h2>A simple Todo App</h2>
-            <TaskInput onTodoAdd={addTodo}></TaskInput>
-          </Container>
-          <div>
-            <TaskList
-              items={todos}
-              onComplete={markAsCompleted}
-              onDelete={deleteTodo}
-              onEdit={editTodo}
-            />
-          </div>
-          {isEditMode && (
-            <>
-              <EditTask
-                item={selectedTodo}
-                onSave={saveTodo}
-                onCancel={() => setIsEditMode(false)}
-              ></EditTask>
-            </>
-          )}
+        <section className="mx-auto text-center h-[50vh] bg-accent flex flex-col justify-center items-center text-black">
+          <h2 className="">A Simple Todo App</h2>
+          <TaskInput onTodoAdd={addTodo}></TaskInput>
+        </section>
+        <div>
+          <TaskList
+            items={todos}
+            onComplete={markAsCompleted}
+            onDelete={deleteTodo}
+            onEdit={editTodo}
+          />
         </div>
+        {isEditMode && (
+          <>
+            <EditTask
+              item={selectedTodo}
+              onSave={saveTodo}
+              onCancel={() => setIsEditMode(false)}
+            ></EditTask>
+          </>
+        )}
       </main>
     </div>
   );
