@@ -30,3 +30,14 @@ firebase emulators:start
 
 npm run dev
 ```
+
+## Features
+
+- Priority
+- Labels
+- Custom Boards
+- Dashboards
+- Filters
+- Logo with Quick Add and Quick Search
+- Account Login
+- Account Settings

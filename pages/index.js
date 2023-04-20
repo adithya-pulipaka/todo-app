@@ -7,6 +7,7 @@ import {
   getTasks,
   markAsCompleted,
 } from "../firebase/db";
+import TaskList from "../components/TaskList";
 
 export default function Home() {
   const [todos, dispatch] = useReducer(reducer, []);
@@ -35,51 +36,31 @@ export default function Home() {
     }
   };
 
-  const deleteTodo = async (id) => {
-    await deleteTask(id);
-    dispatch({ type: TODO_OPS.DELETE, payload: id });
-  };
-
-  const markCompleted = async (id) => {
-    await markAsCompleted(id);
-    dispatch({ type: TODO_OPS.COMPLETED, payload: id });
-  };
-
   return (
-    <div>
-      <main>
-        <h1>A Simple Todo App</h1>
-        <input
-          type="text"
-          name="todo"
-          id="todo"
-          placeholder="Add a new todo item"
-          ref={inputRef}
-          onKeyDown={addTodo}
-        />
-        <button onClick={addTodo}>Add</button>
-        <br />
+    <main className="text-center">
+      <div className="w-[60%] mx-auto flex mt-8 justify-between items-center pr-8">
+        <h3 className="pl-4">A Simple Todo App</h3>
         <div>
-          {todos.length > 0 &&
-            todos.map((todo) => {
-              return (
-                <div key={todo.id}>
-                  {todo.completed ? (
-                    <span>{todo.name}</span>
-                  ) : (
-                    <b>
-                      <span>{todo.name}</span>
-                    </b>
-                  )}
-                  <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-                  <button onClick={() => markCompleted(todo.id)}>
-                    Mark as Completed
-                  </button>
-                </div>
-              );
-            })}
+          <input
+            type="text"
+            name="todo"
+            id="todo"
+            placeholder="Quick Add and Enter"
+            className="border border-solid border-slate-400 rounded-lg pl-2 w-[15rem] mr-2 py-[2px]"
+            ref={inputRef}
+            onKeyDown={addTodo}
+          />
+          <button
+            onClick={addTodo}
+            className="bg-accent text-primary px-2 py-[2px] ml-2 rounded-lg"
+          >
+            Add Task
+          </button>
         </div>
-      </main>
-    </div>
+      </div>
+      <div>
+        <TaskList items={todos} dispatch={dispatch}></TaskList>
+      </div>
+    </main>
   );
 }

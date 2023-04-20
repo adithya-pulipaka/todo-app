@@ -1,6 +1,7 @@
 :root {
   --clr-primary: #706a6a;
-  --clr-accent: #ff9400;
+  --clr-accent: #424ac7;
+  /*   --clr-accent: #ff9400; */
 }
 @tailwind base;
 @tailwind components;
