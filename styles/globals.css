@@ -48,4 +48,8 @@
   .bg-accent {
     background: var(--clr-accent);
   }
+  .no-outline:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }

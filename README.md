@@ -34,7 +34,7 @@ npm run dev
 ## Features
 
 - Priority
-- Labels
+- Labels/Tags
 - Custom Boards
 - Dashboards
 - Filters
