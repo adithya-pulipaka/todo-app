@@ -9,7 +9,7 @@ export const TODO_OPS = {
 function reducer(state, action) {
   switch (action.type) {
     case TODO_OPS.INIT:
-      return [...action.payload];
+      return action ? [...action?.payload] : [];
     case TODO_OPS.ADD:
       return [action.payload, ...state];
     case TODO_OPS.DELETE:

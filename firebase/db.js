@@ -1,3 +1,4 @@
+import "./firebase_setup";
 import {
   getFirestore,
   connectFirestoreEmulator,

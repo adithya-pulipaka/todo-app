@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 
 const TWDatepicker = ({ onChange, onCancel }) => {
@@ -17,14 +17,17 @@ const TWDatepicker = ({ onChange, onCancel }) => {
   };
 
   return (
-    <div>
+    <>
       <Datepicker
         asSingle={true}
         useRange={false}
         value={dueDateVal}
         onChange={handleValueChange}
+        containerClassName="relative text-gray-700 w-auto"
+        inputClassName="border border-gray-300 rounded-lg pl-4 py-1 font-light w-[75%]"
+        toggleClassName="absolute h-full pl-3 text-gray-400 right-12"
       />
-    </div>
+    </>
   );
 };
 
