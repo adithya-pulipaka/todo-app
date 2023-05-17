@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <main className="text-center">
-      <div className="w-[60%] mx-auto flex mt-8 justify-between items-center pr-8">
+      <div className="w-[60%] mx-auto flex mt-8 justify-between items-center pr-4">
         <h3 className="pl-4">A Simple Todo App</h3>
         <div>
           {isNewTask && (
@@ -30,7 +30,7 @@ export default function Home() {
           )}
           <button
             onClick={() => setIsNewTask(true)}
-            className="bg-accent text-primary px-2 py-2 ml-2 text-sm rounded-md"
+            className="bg-accent text-primary px-2 py-2 text-sm rounded-md"
           >
             Add Task
           </button>

@@ -5,18 +5,23 @@ import { TODO_OPS } from "../reducers/todo.reducer";
 import TWDatepicker from "./TWDatepicker";
 import format from "date-fns/format";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { CalendarIcon } from "@heroicons/react/24/outline";
+import { CalendarIcon, HashtagIcon } from "@heroicons/react/24/outline";
 import Priority from "./Priority";
 import Tooltip from "./Tooltip";
+import HashTagInput from "./HashTagInput";
+import HashTag from "./HashTag";
 
 const NewTask = ({ onClose, dispatch }) => {
   const [taskDetails, setTaskDetails] = useState({
     item: "",
     dueDate: null,
     priority: null,
+    tags: [],
   });
   const [isDueDateEnabled, setIsDueDateEnabled] = useState(false);
+  const [isHashTagEnabled, setIsHashTagEnabled] = useState(false);
   const [isDueTimeEnabled, setIsDueTimeEnabled] = useState(false);
+  console.log(taskDetails);
 
   const addTodo = async (e) => {
     if (e.type === "click" || (e.type === "keydown" && e.key === "Enter")) {
@@ -27,7 +32,9 @@ const NewTask = ({ onClose, dispatch }) => {
         active: true,
         dueDate: taskDetails.dueDate,
         priority: taskDetails.priority,
+        tags: taskDetails.tags,
       };
+      console.log(item);
       const ref = await createTask(item);
       dispatch({ type: TODO_OPS.ADD, payload: { ...item, id: ref.id } });
       onClose();
@@ -75,7 +82,7 @@ const NewTask = ({ onClose, dispatch }) => {
                     <>
                       <Tooltip content="Due Date">
                         <CalendarIcon
-                          className="h-5 w-5 text-accent"
+                          className="h-5 w-5 text-accent mr-2"
                           onClick={() => {
                             setIsDueDateEnabled(true);
                             setTaskDetails({
@@ -101,6 +108,43 @@ const NewTask = ({ onClose, dispatch }) => {
                           })
                         }
                       ></TWDatepicker>
+                    </>
+                  )}
+                  {!isHashTagEnabled && (
+                    <>
+                      <Tooltip content="Tags">
+                        <HashtagIcon
+                          className="h-5 w-5 text-accent"
+                          onClick={() => {
+                            setIsHashTagEnabled(true);
+                          }}
+                        ></HashtagIcon>
+                      </Tooltip>
+                    </>
+                  )}
+                  {isHashTagEnabled && (
+                    <>
+                      <HashTagInput
+                        onClose={() => {
+                          setIsHashTagEnabled(false);
+                        }}
+                        onTagAdd={(value) =>
+                          setTaskDetails({
+                            ...taskDetails,
+                            tags: [...taskDetails.tags, value],
+                          })
+                        }
+                      ></HashTagInput>
+                    </>
+                  )}
+                </div>
+                <div className="font-light mt-2">
+                  Tags:{" "}
+                  {taskDetails.tags.length > 0 && (
+                    <>
+                      {taskDetails.tags.map((tag) => {
+                        return <HashTag>{tag}</HashTag>;
+                      })}
                     </>
                   )}
                 </div>
