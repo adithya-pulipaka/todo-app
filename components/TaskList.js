@@ -1,8 +1,9 @@
 import React from "react";
 import { deleteTask, markAsCompleted } from "../firebase/db";
 import { TODO_OPS } from "../reducers/todo.reducer";
-import { TrashIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
+import { TrashIcon, CheckBadgeIcon, FlagIcon } from "@heroicons/react/24/solid";
 import Tooltip from "./Tooltip";
+import { PRIORITIES } from "./Priority";
 
 const TaskList = ({ items, dispatch }) => {
   const onComplete = async (id) => {
@@ -17,6 +18,10 @@ const TaskList = ({ items, dispatch }) => {
 
   const todoStatus = (todo) => {
     return todo.completed ? "line-through" : "";
+  };
+
+  const getPriorityClass = (priority) => {
+    return PRIORITIES.find((p) => p.name === priority).class;
   };
 
   return (
@@ -41,18 +46,27 @@ const TaskList = ({ items, dispatch }) => {
                     </p>
                   )}
                 </div>
-                <div className="flex">
+                <div className="flex items-center">
+                  {todo.priority && (
+                    <Tooltip content={todo.priority}>
+                      <FlagIcon
+                        className={`w-4 h-4 mx-1 ${getPriorityClass(
+                          todo.priority
+                        )}`}
+                      ></FlagIcon>
+                    </Tooltip>
+                  )}
                   {!todo.completed && (
                     <Tooltip content="Complete">
                       <CheckBadgeIcon
-                        className="w-5 h-5 mx-2 hover:text-green-600"
+                        className="w-5 h-5 mx-1 hover:text-green-600"
                         onClick={() => onComplete(todo.id)}
                       ></CheckBadgeIcon>
                     </Tooltip>
                   )}
                   <Tooltip content="Delete">
                     <TrashIcon
-                      className="w-5 h-5 mx-2 hover:text-red-500 hover:content-['hello']"
+                      className="w-5 h-5 mx-1 hover:text-red-500"
                       onClick={() => onDelete(todo.id)}
                     ></TrashIcon>
                   </Tooltip>

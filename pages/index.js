@@ -1,25 +1,19 @@
 import { useEffect, useReducer, useRef, useState } from "react";
-import "../firebase/firebase_setup";
 import reducer, { TODO_OPS } from "../reducers/todo.reducer";
-import {
-  createTask,
-  deleteTask,
-  getTasks,
-  markAsCompleted,
-} from "../firebase/db";
+import { getTasks } from "../firebase/db";
 import TaskList from "../components/TaskList";
-import { Dialog } from "@headlessui/react";
 import NewTask from "../components/NewTask";
 
 export default function Home() {
   const [todos, dispatch] = useReducer(reducer, []);
-  const inputRef = useRef(null);
   const [isNewTask, setIsNewTask] = useState(false);
 
   useEffect(() => {
     (async () => {
       const data = await getTasks();
-      dispatch({ type: TODO_OPS.INIT, payload: data });
+      if (data) {
+        dispatch({ type: TODO_OPS.INIT, payload: data });
+      }
     })();
   }, []);
 

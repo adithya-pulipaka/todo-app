@@ -8,6 +8,6 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@headlessui/tailwindcss")({ prefix: "ui" })],
   darkMode: "class", //manually setting datepicker component to use light mode
 };
