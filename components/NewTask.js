@@ -142,8 +142,8 @@ const NewTask = ({ onClose, dispatch }) => {
                   Tags:{" "}
                   {taskDetails.tags.length > 0 && (
                     <>
-                      {taskDetails.tags.map((tag) => {
-                        return <HashTag>{tag}</HashTag>;
+                      {taskDetails.tags.map((tag, index) => {
+                        return <HashTag key={index}>{tag}</HashTag>;
                       })}
                     </>
                   )}
