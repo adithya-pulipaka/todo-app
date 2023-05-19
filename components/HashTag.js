@@ -1,8 +1,13 @@
 import React from "react";
 
-const HashTag = ({ children }) => {
+const HashTag = ({ size, tagStyle, children }) => {
+  const textSize = size ? `text-${size} ml-[1px]` : "text-sm mx-1";
+  const outline =
+    tagStyle === "outline" ? `text-accent` : `bg-accent text-white`;
   return (
-    <span className="bg-accent mx-1 rounded-md p-1 text-sm text-white">{`#${children} `}</span>
+    <span
+      className={`${outline} rounded-md p-1 ${textSize}`}
+    >{`#${children} `}</span>
   );
 };
 
