@@ -5,6 +5,7 @@ import { TrashIcon, CheckBadgeIcon, FlagIcon } from "@heroicons/react/24/solid";
 import Tooltip from "./Tooltip";
 import { PRIORITIES } from "./Priority";
 import { addDays, isAfter, parse, set } from "date-fns";
+import HashTag from "./HashTag";
 
 const TaskList = ({ items, dispatch }) => {
   const [expiredTasks, setExpiredTasks] = useState([]);
@@ -60,7 +61,7 @@ const TaskList = ({ items, dispatch }) => {
   };
 
   const formatExpiredTasks = (id) => {
-    return expiredTasks.includes(id) ? "text-red-500" : "text-secondary";
+    return expiredTasks.includes(id) ? "text-red-600" : "text-secondary";
   };
 
   return (
@@ -80,10 +81,22 @@ const TaskList = ({ items, dispatch }) => {
                 <div className="text-left">
                   <p className={` ${todoStatus(todo)}`}>{todo.name}</p>
                   {todo.dueDate && (
-                    <p className={`text-xs ${formatExpiredTasks(todo.id)}`}>
+                    <span className={`text-xs ${formatExpiredTasks(todo.id)}`}>
                       Due: {todo.dueDate}
-                    </p>
+                    </span>
                   )}
+                  {todo.dueDate && todo.tags && todo.tags.length > 0 && (
+                    <span className="text-xs mx-2">|</span>
+                  )}
+                  {todo.tags &&
+                    todo.tags.length > 0 &&
+                    todo.tags.map((tag, index) => {
+                      return (
+                        <HashTag key={index} size="xs" tagStyle="outline">
+                          {tag}
+                        </HashTag>
+                      );
+                    })}
                 </div>
                 <div className="flex items-center">
                   {todo.priority && (
