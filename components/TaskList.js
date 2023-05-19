@@ -11,6 +11,7 @@ const TaskList = ({ items, dispatch }) => {
 
   useEffect(() => {
     const id = setInterval(checkDueDates, 300000);
+    setTimeout(checkDueDates, 1000);
 
     return () => {
       clearInterval(id);
