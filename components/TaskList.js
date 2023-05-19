@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { deleteTask, markAsCompleted } from "../firebase/db";
 import { TODO_OPS } from "../reducers/todo.reducer";
 import { TrashIcon, CheckBadgeIcon, FlagIcon } from "@heroicons/react/24/solid";
 import Tooltip from "./Tooltip";
 import { PRIORITIES } from "./Priority";
+import { getDate, isAfter, parse, set } from "date-fns";
 
 const TaskList = ({ items, dispatch }) => {
+  const [expiredTasks, setExpiredTasks] = useState([]);
+
+  useEffect(() => {
+    const id = setInterval(checkDueDates, 300000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [items]);
+
+  const checkDueDates = () => {
+    const today = set(new Date(), {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    });
+
+    const expiredTasks = [];
+    items
+      .filter((i) => i.dueDate)
+      .forEach((item) => {
+        const dueDate = parse(item.dueDate, "yyyy-MM-dd", new Date());
+        const isDueDateOver =
+          isAfter(today, dueDate) && getDate(today) > getDate(dueDate);
+        if (isDueDateOver) {
+          expiredTasks.push(item.id);
+        }
+      });
+    setExpiredTasks(expiredTasks);
+  };
+
   const onComplete = async (id) => {
     await markAsCompleted(id);
     dispatch({ type: TODO_OPS.COMPLETED, payload: id });
@@ -22,6 +54,10 @@ const TaskList = ({ items, dispatch }) => {
 
   const getPriorityClass = (priority) => {
     return PRIORITIES.find((p) => p.name === priority).class;
+  };
+
+  const formatExpiredTasks = (id) => {
+    return expiredTasks.includes(id) ? "text-red-500" : "text-secondary";
   };
 
   return (
@@ -41,7 +77,7 @@ const TaskList = ({ items, dispatch }) => {
                 <div className="text-left">
                   <p className={` ${todoStatus(todo)}`}>{todo.name}</p>
                   {todo.dueDate && (
-                    <p className="text-secondary text-xs">
+                    <p className={`text-xs ${formatExpiredTasks(todo.id)}`}>
                       Due: {todo.dueDate}
                     </p>
                   )}
@@ -66,7 +102,7 @@ const TaskList = ({ items, dispatch }) => {
                   )}
                   <Tooltip content="Delete">
                     <TrashIcon
-                      className="w-5 h-5 mx-1 hover:text-red-500"
+                      className="w-5 h-5 mx-1 hover:text-red-500 hover:cursor-pointer"
                       onClick={() => onDelete(todo.id)}
                     ></TrashIcon>
                   </Tooltip>

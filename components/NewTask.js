@@ -139,9 +139,9 @@ const NewTask = ({ onClose, dispatch }) => {
                   )}
                 </div>
                 <div className="font-light mt-2">
-                  Tags:{" "}
                   {taskDetails.tags.length > 0 && (
                     <>
+                      Tags:{" "}
                       {taskDetails.tags.map((tag, index) => {
                         return <HashTag key={index}>{tag}</HashTag>;
                       })}
