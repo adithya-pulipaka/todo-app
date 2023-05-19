@@ -4,7 +4,7 @@ import { TODO_OPS } from "../reducers/todo.reducer";
 import { TrashIcon, CheckBadgeIcon, FlagIcon } from "@heroicons/react/24/solid";
 import Tooltip from "./Tooltip";
 import { PRIORITIES } from "./Priority";
-import { getDate, isAfter, parse, set } from "date-fns";
+import { addDays, isAfter, parse, set } from "date-fns";
 
 const TaskList = ({ items, dispatch }) => {
   const [expiredTasks, setExpiredTasks] = useState([]);
@@ -29,9 +29,11 @@ const TaskList = ({ items, dispatch }) => {
     items
       .filter((i) => i.dueDate)
       .forEach((item) => {
-        const dueDate = parse(item.dueDate, "yyyy-MM-dd", new Date());
-        const isDueDateOver =
-          isAfter(today, dueDate) && getDate(today) > getDate(dueDate);
+        const dueDate = addDays(
+          parse(item.dueDate, "yyyy-MM-dd", new Date()),
+          1
+        );
+        const isDueDateOver = isAfter(today, dueDate);
         if (isDueDateOver) {
           expiredTasks.push(item.id);
         }
